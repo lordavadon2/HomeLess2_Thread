@@ -3,7 +3,6 @@ package com.brainacad.hw.FileWork;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class DirView implements IDirView {
     private File path;
@@ -18,17 +17,14 @@ public class DirView implements IDirView {
             files = new File[]{path};
         } else {
             files = path.listFiles();
-            Arrays.sort(files, new Comparator<File>() {
-                @Override
-                public int compare(File f1, File f2) {
-                    if (f1.isDirectory() && f2.isFile()) {
-                        return -1;
-                    }
-                    if (f1.isFile() && f2.isDirectory()) {
-                        return 1;
-                    }
-                    return 0;
+            Arrays.sort(files, (f1, f2) -> {
+                if (f1.isDirectory() && f2.isFile()) {
+                    return -1;
                 }
+                if (f1.isFile() && f2.isDirectory()) {
+                    return 1;
+                }
+                return 0;
             });
         }
     }
