@@ -8,7 +8,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String path = "D:\\250GB"; //Введите ваш путь
+        String path = "qwerty"; //Введите ваш путь
         try {
             new DirView(path).print();
         } catch (IOException e) {
