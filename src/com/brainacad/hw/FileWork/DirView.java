@@ -18,7 +18,18 @@ public class DirView implements IDirView {
             files = new File[]{path};
         } else {
             files = path.listFiles();
-            Arrays.sort(files, new DirView.FilesComparator());
+            Arrays.sort(files, new Comparator<File>() {
+                @Override
+                public int compare(File f1, File f2) {
+                    if (f1.isDirectory() && f2.isFile()) {
+                        return -1;
+                    }
+                    if (f1.isFile() && f2.isDirectory()) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            });
         }
     }
 
@@ -31,17 +42,5 @@ public class DirView implements IDirView {
 
     public File[] getFilesAndDir() {
         return files;
-    }
-
-    private class FilesComparator implements Comparator<File> {
-        public int compare(File f1, File f2) {
-            if (f1.isDirectory() && f2.isFile()) {
-                return -1;
-            }
-            if (f1.isFile() && f2.isDirectory()) {
-                return 1;
-            }
-            return 0;
-        }
     }
 }
