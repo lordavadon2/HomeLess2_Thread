@@ -36,7 +36,7 @@ public class DirView implements IDirView {
         }
     }
 
-    public File[] getFilesAndDir() {
+    public File[] getArrayOfFileList() {
         return files;
     }
 }
