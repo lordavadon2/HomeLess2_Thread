@@ -8,10 +8,11 @@ public class Main {
 
 
     public static void main(String[] args) {
+        String path = "qwerty"; //Введите ваш путь
         try {
-            new DirView("Введите ваш путь").print();
+            new DirView(path).print();
         } catch (IOException e) {
-            System.out.println("Cannot access " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }

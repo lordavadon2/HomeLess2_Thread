@@ -12,7 +12,7 @@ public class DirView implements IDirView {
     public DirView(String pathname) throws IOException {
         path = new File(pathname);
         if (!path.exists()) {
-            throw new IOException(pathname + ": No such file or directory");
+            throw new IOException("Cannot access " + pathname + ": No such file or directory");
         }
         if (path.isFile()) {
             files = new File[]{path};
@@ -41,7 +41,7 @@ public class DirView implements IDirView {
             if (f1.isFile() && f2.isDirectory()) {
                 return 1;
             }
-            return f1.compareTo(f2);
+            return 0;
         }
     }
 }
