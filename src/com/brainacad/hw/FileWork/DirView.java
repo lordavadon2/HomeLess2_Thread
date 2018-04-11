@@ -10,6 +10,7 @@ public class DirView implements IDirView {
 
     public DirView(String pathname) throws IOException {
         path = new File(pathname);
+        files = null;
         if (!path.exists()) {
             throw new IOException("Cannot access " + pathname + ": No such file or directory");
         }
@@ -41,6 +42,9 @@ public class DirView implements IDirView {
     }
 
     public File[] getArrayOfFileList() {
+        if (files == null){
+            getListOfFile();
+        }
         return files;
     }
 }
