@@ -13,6 +13,9 @@ public class DirView implements IDirView {
         if (!path.exists()) {
             throw new IOException("Cannot access " + pathname + ": No such file or directory");
         }
+    }
+
+    public void getListOfFile() {
         if (path.isFile()) {
             files = new File[]{path};
         } else {
