@@ -15,6 +15,7 @@ public class DirView implements IDirView {
         }
     }
 
+    @Override
     public void getListOfFile() {
         if (path.isFile()) {
             files = new File[]{path};
