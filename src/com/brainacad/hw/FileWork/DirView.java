@@ -1,10 +1,16 @@
 package com.brainacad.hw.FileWork;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class DirView implements IDirView {
+public class DirView implements IDirView, FilenameFilter {
+    @Override
+    public boolean accept(File dir, String name) {
+        return false;
+    }
+
     private File path;
     private File[] files;
 
@@ -17,11 +23,11 @@ public class DirView implements IDirView {
     }
 
     @Override
-    public void getListOfFile() {
+    public void getListOfMaskFile(String mask) {
         if (path.isFile()) {
             files = new File[]{path};
         } else {
-            files = path.listFiles();
+            files = path.listFiles(getFilteredFiles(mask)); //getFilteredFiles(mask)
             Arrays.sort(files, (f1, f2) -> {
                 if (f1.isDirectory() && f2.isFile()) {
                     return -1;
@@ -32,6 +38,11 @@ public class DirView implements IDirView {
                 return 0;
             });
         }
+    }
+
+    @Override
+    public void getListOfFile() {
+        getListOfMaskFile("*");
     }
 
     @Override
@@ -46,5 +57,16 @@ public class DirView implements IDirView {
             getListOfFile();
         }
         return files;
+    }
+
+    private FilenameFilter getFilteredFiles(String mask){
+        return (dir, name) -> {
+            if(mask.equals("*") || mask.equals("*.*")) {
+                return true;
+            }
+            else {
+                return (name.endsWith(mask));
+            }
+        };
     }
 }
