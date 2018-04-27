@@ -17,10 +17,10 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.out.println("Старт Основного потока");
+        System.out.println("Старт основного потока");
         Thread mainStream = new ThreadFileWork();
         mainStream.run();
         mainStream.join();
-        System.out.println("Конец основоного потока");
+        System.out.println("Завершение основоного потока");
     }
 }

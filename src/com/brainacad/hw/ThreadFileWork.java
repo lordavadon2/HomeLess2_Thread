@@ -15,6 +15,7 @@ public class ThreadFileWork extends Thread {
 
     @Override
     public void run() {
+        System.out.println("Старт потока на ввод/вывод файлов");
         System.out.println("Для поиска файла или директории введите данные в формате:");
         System.out.println("\"Путь_к_директории пробельный_символ маска_для_поиска_файла_или_директории\"");
         System.out.println("пример: \"С:\\some_path some_mask\", \"С:\\some_path .txt\"");
@@ -40,6 +41,9 @@ public class ThreadFileWork extends Thread {
         }
         catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+        finally {
+            System.out.println("Завершение потока на ввод/вывод файлов");
         }
     }
 }
