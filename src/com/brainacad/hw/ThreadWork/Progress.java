@@ -6,7 +6,7 @@ public class Progress {
     public static void progressBar(double progressPercentage) {
         final int width = 50; // progress bar width in chars
 
-        System.out.print("\r[");
+        System.out.print("\rProgress status [");
         int i = 0;
         for (; i <= (int) (progressPercentage * width); i++) {
             System.out.print(".");
