@@ -1,15 +1,8 @@
 package com.brainacad.hw;
 
-import com.brainacad.hw.FileWork.DirView;
-import com.brainacad.hw.FileWork.IDirView;
-import com.brainacad.hw.FileWork.IOFileOperation;
-import com.brainacad.hw.StringParser.IStringParser;
-import com.brainacad.hw.StringParser.InputValidator;
-import com.brainacad.hw.StringParser.StringParser;
-import com.brainacad.hw.StringParser.ValidationExaption;
+import com.brainacad.hw.ThreadWork.Progress;
+import com.brainacad.hw.ThreadWork.ThreadFileWork;
 
-import java.io.IOException;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -18,9 +11,18 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("Старт основного потока");
-        Thread mainStream = new ThreadFileWork();
-        mainStream.run();
-        mainStream.join();
+        System.out.println("Для поиска файла или директории введите данные в формате:");
+        System.out.println("\"Путь_к_директории пробельный_символ маска_для_поиска_файла_или_директории\"");
+        System.out.println("пример: \"С:\\some_path some_mask\", \"С:\\some_path .txt\"");
+        String userInput = new Scanner(System.in).nextLine();
+        Thread newStream = new Thread(new ThreadFileWork(),userInput);
+        newStream.start();
+        System.out.println("Старт потока на ввод/вывод файлов");
+        while (newStream.isAlive()){
+            Progress.progressBar();
+            Thread.sleep(100);
+        }
+//        mainStream.join();
         System.out.println("Завершение основоного потока");
     }
 }
