@@ -17,24 +17,29 @@ public class ThreadFileWork implements Runnable {
     public void run() {
         IStringParser parser = new StringParser(Thread.currentThread().getName(),
                             new InputValidator(Thread.currentThread().getName()));
-        Progress.progressPercent = 0.2;
+        Progress.setProgress(0.2);
         try {
             Thread.sleep(500);
             parser.tryParse();
-            Progress.progressPercent = 0.4;
+            Progress.setProgress(0.4);
             Thread.sleep(500);
             IDirView dirView = new DirView(parser.getParsePath());
             dirView.getListOfFile();
-            Progress.progressPercent = 0.6;
+            Progress.setProgress(0.6);
             Thread.sleep(500);
 //            dirView.print();
 //            System.out.println();
             dirView.getListOfMaskFile(parser.getParseMask());
-            Progress.progressPercent = 0.8;
+            Progress.setProgress(0.8);
             Thread.sleep(500);
 //            dirView.print();
-            dirView.changerFiles();
-            Progress.progressPercent = 1.0;
+//            dirView.changerFiles();
+            for (int i = 0; i < 2; i++) {
+                Thread t = new Thread((Runnable) dirView);
+                t.setName("Thread "+ i);
+                t.start();
+            }
+            Progress.setProgress(1.0);
             Thread.sleep(500);
 //            Map<String, String> map = dirView.getFileMap();
 //            for(Map.Entry<String, String> item : map.entrySet()){

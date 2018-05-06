@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DirView implements IDirView, FilenameFilter {
+public class DirView implements IDirView, FilenameFilter, Runnable {
     @Override
     public boolean accept(File dir, String name) {
         return false;
@@ -61,7 +61,7 @@ public class DirView implements IDirView, FilenameFilter {
     }
 
     public File[] getArrayOfFileList() {
-        if (files == null){
+        if (files == null) {
             getListOfFile();
         }
         return files;
@@ -77,17 +77,17 @@ public class DirView implements IDirView, FilenameFilter {
         };
     }
 
-    public void changerFiles() throws IOException {
+    synchronized public void changerFiles() throws IOException {
         String temp;
         for (int i = 0; i < files.length; i++) {
-        temp = fileOperation.readFromFile(files[i].toString());
-        toHashMap(files[i].toString(), temp);
-        fileOperation.writToFile(files[i].toString(), temp);
+            temp = fileOperation.readFromFile(files[i].toString());
+            toHashMap(files[i].toString(), temp);
+            fileOperation.writToFile(files[i].toString(), temp);
         }
     }
 
-    public boolean toHashMap(String key, String value){
-        if (null == key && null == value){
+    public boolean toHashMap(String key, String value) {
+        if (null == key && null == value) {
             return false;
         }
         fileMap.put(key, value);
@@ -96,5 +96,14 @@ public class DirView implements IDirView, FilenameFilter {
 
     public Map<String, String> getFileMap() {
         return fileMap;
+    }
+
+    @Override
+    public void run() {
+        try {
+            changerFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

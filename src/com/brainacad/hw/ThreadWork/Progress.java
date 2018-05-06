@@ -1,7 +1,7 @@
 package com.brainacad.hw.ThreadWork;
 
 public class Progress {
-    public static double progressPercent = 0.0;
+    private static double progressPercent = 0.0;
 
     public static void progressBar(double progressPercentage) {
         final int width = 50; // progress bar width in chars
@@ -19,6 +19,10 @@ public class Progress {
 
     public static void progressBar() {
         progressBar(progressPercent);
+    }
+
+    public static void setProgress(double progressPercent) {
+        Progress.progressPercent = progressPercent;
     }
 }
 

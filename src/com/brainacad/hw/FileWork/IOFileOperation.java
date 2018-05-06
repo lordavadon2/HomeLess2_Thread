@@ -8,7 +8,6 @@ import java.util.List;
 
 public class IOFileOperation {
 
-    private final String MYSTRING = "Java forever";
 
     public IOFileOperation() {
     }
@@ -28,8 +27,8 @@ public class IOFileOperation {
     }
 
     private void addPathToList(String path, List<String> fis){
+        fis.add(Thread.currentThread().getName());
         fis.add(path);
-        fis.add(MYSTRING);
     }
 
     private String listToString(List<String> fis){
