@@ -7,7 +7,7 @@ public interface IDirView {
     void getListOfFile();
     void getListOfMaskFile(String mask);
     void print();
-    void changerFiles() throws IOException;
+    void changerFiles(int i) throws IOException;
     boolean toHashMap(String key, String value);
     Map<String, String> getFileMap();
 }

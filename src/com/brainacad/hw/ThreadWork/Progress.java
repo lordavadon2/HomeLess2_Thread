@@ -1,12 +1,18 @@
 package com.brainacad.hw.ThreadWork;
 
-public class Progress {
-    private static double progressPercent = 0.0;
+public class Progress{
 
-    public static void progressBar(double progressPercentage) {
+    private double progressPercentage;
+
+    public Progress() {
+        this.progressPercentage = 0.0;
+    }
+
+    synchronized public void progressBar(double progressPercentage, String threadName) {
+        this.progressPercentage = progressPercentage;
         final int width = 50; // progress bar width in chars
 
-        System.out.print("\rProgress status [");
+        System.out.print(threadName + " Progress status [");
         int i = 0;
         for (; i <= (int) (progressPercentage * width); i++) {
             System.out.print(".");
@@ -14,15 +20,8 @@ public class Progress {
         for (; i < width; i++) {
             System.out.print(" ");
         }
-        System.out.print("] " + (int)(progressPercentage*100) +"%");
+        System.out.println("] " + (int)(progressPercentage*100) +"%");
     }
 
-    public static void progressBar() {
-        progressBar(progressPercent);
-    }
-
-    public static void setProgress(double progressPercent) {
-        Progress.progressPercent = progressPercent;
-    }
 }
 

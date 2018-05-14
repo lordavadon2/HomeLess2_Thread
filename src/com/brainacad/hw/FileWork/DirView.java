@@ -1,5 +1,7 @@
 package com.brainacad.hw.FileWork;
 
+import com.brainacad.hw.ThreadWork.Progress;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DirView implements IDirView, FilenameFilter, Runnable {
+public class DirView implements IDirView, FilenameFilter {
     @Override
     public boolean accept(File dir, String name) {
         return false;
@@ -77,13 +79,11 @@ public class DirView implements IDirView, FilenameFilter, Runnable {
         };
     }
 
-    synchronized public void changerFiles() throws IOException {
-        String temp;
-        for (int i = 0; i < files.length; i++) {
+    synchronized public void changerFiles(int i) throws IOException {
+            String temp;
             temp = fileOperation.readFromFile(files[i].toString());
             toHashMap(files[i].toString(), temp);
             fileOperation.writToFile(files[i].toString(), temp);
-        }
     }
 
     public boolean toHashMap(String key, String value) {
@@ -98,12 +98,20 @@ public class DirView implements IDirView, FilenameFilter, Runnable {
         return fileMap;
     }
 
-    @Override
-    public void run() {
+    public void changeFiles() {
         try {
-            changerFiles();
+            for (int i = 0; i < files.length; i++){
+                changerFiles(i);
+                Thread.sleep(2000);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+    }
+
+    public File[] getFiles() {
+        return files;
     }
 }

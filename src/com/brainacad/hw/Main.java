@@ -18,11 +18,7 @@ public class Main {
         Thread newStream = new Thread(new ThreadFileWork(),userInput);
         newStream.start();
         System.out.println("Старт потока на ввод/вывод файлов");
-        while (newStream.isAlive()){
-            Progress.progressBar();
-            Thread.sleep(100);
-        }
-//        mainStream.join();
+        while (newStream.isAlive());
         System.out.println("Завершение основоного потока");
     }
 }
